@@ -1,0 +1,23 @@
+<?php $this->headTitle('Cadastro de Títulos | NR12 Sistema Inventariante'); ?>
+<h1><?php echo $this->translate('Editar título'); ?></h1>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+    'titulo',
+    array(
+        'action' => 'edit',
+        'id'     => $this->titulo_id,
+    )
+));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('titulo_id'));
+echo $this->formRow($form->get('descricao'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+
+?>
+
+<a class="btn" href="<?php echo $this->url('titulo')?>">Voltar</a>

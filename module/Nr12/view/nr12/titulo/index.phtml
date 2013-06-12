@@ -1,0 +1,25 @@
+<?php $this->headTitle('Cadastro de Títulos | NR12 Sistema Inventariante'); ?>
+<label class="divisor"><h2>Lista de Titulos <a class="btn" href="<?php echo $this->url('titulo', array('action'=>'add')); ?>">Adicionar novo</a></h2></label>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Subtitulos</th>
+            <th width="130">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($titulos as $titulo): ?>
+            <tr>
+                <td><?php echo $this->escapeHtml($titulo->getDescricao()) ?></td>
+                <td><?php echo count($titulo->getSubtitulos()) ?></td>
+                <td class="center">
+                    <a class="btn" href="<?php echo $this->url('titulo',
+                        array('action'=>'edit', 'id' => $titulo->getTituloId()));?>"><i class="icon-edit"></i></a>
+                    <a class="btn" href="<?php echo $this->url('titulo',
+                        array('action'=>'delete', 'id' => $titulo->getTituloId()));?>"><i class="icon-remove"></i></a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
