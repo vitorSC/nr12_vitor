@@ -1,0 +1,25 @@
+<?php $this->headTitle('Cadastro de Produtos | NR12 Sistema'); ?>
+<label class="divisor"><h2>Lista de Produtos <a class="btn" style="float:right" href="<?php echo $this->url('produto', array('action'=>'add')); ?>">Adicionar novo</a></h2></label>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th width="130">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($produtos as $produto): ?>
+            <tr>
+                <td><?php echo $this->escapeHtml($produto->getDescricao()) ?></td>
+                <td><?php echo count($produto->getCategorias()) ?></td>
+                <td class="center">
+                    <a class="btn" href="<?php echo $this->url('produto',
+                        array('action'=>'edit', 'id' => $produto->getProdutoId()));?>"><i class="icon-edit"></i></a>
+                    <a class="btn" href="<?php echo $this->url('produto',
+                        array('action'=>'delete', 'id' => $produto->getProdutoId()));?>"><i class="icon-remove"></i></a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

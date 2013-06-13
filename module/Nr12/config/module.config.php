@@ -2,36 +2,36 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Nr12\Controller\Titulo'    => 'Nr12\Controller\TituloController',
-            'Nr12\Controller\Subtitulo' => 'Nr12\Controller\SubtituloController',
+            'Nr12\Controller\Produto'    => 'Nr12\Controller\ProdutoController',
+            'Nr12\Controller\Categoria'  => 'Nr12\Controller\CategoriaController',
         ),
     ),
     'router' => array(
         'routes' => array(
-            'titulo' => array(
+            'produto' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/titulo[/][:action][/:id]',
+                    'route'    => '/produto[/][:action][/:id]',
                     'constraints' => array(
                         'action'  => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'      => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'Nr12\Controller\Titulo',
+                        'controller' => 'Nr12\Controller\Produto',
                         'action'     => 'index',
                     ),
                 ),
             ),
-            'subtitulo' => array(
+            'categoria' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/subtitulo[/][:action][/:id]',
+                    'route'    => '/categoria[/][:action][/:id]',
                     'constraints' => array(
                         'action'  => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'      => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'Nr12\Controller\Subtitulo',
+                        'controller' => 'Nr12\Controller\Categoria',
                         'action'     => 'index',
                     ),
                 ),

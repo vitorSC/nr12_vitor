@@ -45,7 +45,7 @@ class EntityUsingController extends AbstractActionController
     {
         foreach ($data as $k => $d)
         if($k == $key)
-            $data[$k] = $this->getEntityManager()->find('Nr12\Model\Titulo', $d);
+            $data[$k] = $this->getEntityManager()->find('Nr12\Model\Produto', $d);
 
         return $data;
     }

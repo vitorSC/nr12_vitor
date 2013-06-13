@@ -1,0 +1,23 @@
+<?php $this->headTitle('Cadastro de Subtítulos | NR12 Sistema Inventariante'); ?>
+<label class="divisor"><h2>Lista de Subtítulos <a class="btn" href="<?php echo $this->url('subtitulo', array('action'=>'add')); ?>">Adicionar novo</a></h2></label>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Subtítulo</th>
+            <th width="130">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($subtitulos as $subtitulo): ?>
+            <tr>
+                <td><?php echo $this->escapeHtml($subtitulo->getDescricao()) ?></td>
+                <td class="center">
+                    <a class="btn" href="<?php echo $this->url('subtitulo',
+                        array('action'=>'edit', 'id' => $subtitulo->getSubtituloId()));?>"><i class="icon-edit"></i></a>
+                    <a class="btn" href="<?php echo $this->url('subtitulo',
+                        array('action'=>'delete', 'id' => $subtitulo->getSubtituloId()));?>"><i class="icon-remove"></i></a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

@@ -1,0 +1,15 @@
+<?php $this->headTitle('Cadastro de Subtítulos | NR12 Sistema Inventariante'); ?>
+
+<h1><?php echo $this->translate('Adicionar novo subtítulo'); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('subtitulo', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formCollection($form);
+echo $this->form()->closeTag();
+
+?>
+
+<a class="btn" href="<?php echo $this->url('subtitulo')?>">Voltar</a>

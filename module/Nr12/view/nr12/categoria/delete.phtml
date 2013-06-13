@@ -1,0 +1,19 @@
+<?php $this->headTitle('Cadastro de Títulos | NR12 Sistema Inventariante'); ?>
+<h1><?php echo $this->translate('Deletar Título'); ?></h1>
+
+<p>Você realmente quer deletar o título:
+    <?php echo $this->escapeHtml($titulo->getDescricao()); ?>?
+</p>
+<?php
+$url = $this->url('titulo', array(
+    'action' => 'delete',
+    'id'     => $this->titulo_id,
+));
+?>
+<form action="<?php echo $url; ?>" method="post">
+<div>
+    <input type="hidden" name="id" value="<?php echo (int) $titulo->getTituloId(); ?>" />
+    <input class="btn btn-success" type="submit" name="del" value="Sim" />
+    <input class="btn" type="submit" name="del" value="Não" />
+</div>
+</form>
