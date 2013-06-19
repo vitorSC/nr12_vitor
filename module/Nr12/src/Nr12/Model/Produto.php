@@ -6,15 +6,16 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * Entidade Produto
- * @category Nr12
+ * Entidade Produto 
  * @package Model
  * @author Vitor Schweder <vitor.scw@gmail.com>
  *
  * @ORM\Table(name="nr12_produto")
- * @ORM\Entity
+ * @ORM\Entity 
  */
 
 class Produto {
@@ -36,24 +37,46 @@ class Produto {
      * InputFilter
      * @var InputFilter
      */
-    protected $inputFilter;
-    
-    /**
-     * @var int
-     * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="produtos")
-     * @ORM\JoinColumn(name="categoria", referencedColumnName="categoria_id")
+    protected $inputFilter;   
+
+     /**
+     * @ORM\OneToMany(targetEntity="Nr12\Model\Categoria", mappedBy="produto", cascade={"persist"})
      */
-    protected $categoria;
+    protected $categorias;
     
-    /**
-     * Tranforma array em informações
-     * @return void
-     */
-    public function exchangeArray($data) 
+    public function __construct()
     {
-    	$this->produto_id  = (!empty($data['produto_id'])) ? $data['produto_id'] : null;
-    	$this->descricao   = (!empty($data['descricao'])) ? $data['descricao'] : null;
-    	$this->categorias  = (!empty($data['categorias'])) ? $data['categorias'] : null;			
+    	$this->categorias = new ArrayCollection();
+    }
+    
+    /**
+     * @param Collection $categorias
+     */
+    public function addCategorias(Collection $categorias)
+    {
+    	foreach ($categorias as $categoria) {
+    		$categorias->setProduto($this);
+    		$this->categorias->add($categoria);
+    	}
+    }
+
+    /**
+     * @param Collection $categorias
+     */
+    public function removeCategorias(Collection $categorias)
+    {
+    	foreach ($categorias as $categoria) {
+    		$categoria->setProduto(null);
+    		$this->categorias->removeElement($categoria);
+    	}
+    }
+    
+    /**
+     * @return Collection
+     */
+    public function getCategorias()
+    {
+    	return $this->categorias;
     }
     
     /**
@@ -64,7 +87,6 @@ class Produto {
     {
     	return get_object_vars($this);
     }
-    
     
     /**
      * Seta validações dos campos
@@ -105,12 +127,36 @@ class Produto {
     }
     
     /**
+     * Seta id do Produto
+     * @param int $id
+     * @return Produto
+     */
+    public function setProdutoId($id)
+    {
+    	$this->id = $descricao;
+    	 
+    	return $this;
+    }
+    
+    /**
      * Retorna ID do Produto
      * @return int
      */
     public function getProdutoId() 
     {
     	return $this->produto_id;	
+    }
+    
+    /**
+     * Seta descrição do Produto
+     * @param descricao
+     * @return Produto
+     */
+    public function setDescricao($descricao)
+    {
+    	$this->descricao = $descricao;
+    	 
+    	return $this;
     }
     
     /**
@@ -121,37 +167,5 @@ class Produto {
     {
     	return $this->descricao;
     }
-    
-    /**
-     * Seta descrição do Produto
-     * @param descricao
-     * @return Produto
-     */
-    public function setDescricao($descricao) 
-    {
-    	$this->descricao = $descricao;
-    	
-    	return $this;
-    }
-    
-    /**
-     * Retorna categorias do Produto
-     * @return array
-     */
-    public function getCategoria()
-    {
-    	return $this->categoria;
-    }
-    
-    /**
-     * Adiciona uma categoria ao Produto
-     * @param Categoria
-     * @return Produto
-     */
-    public function addCatProduto($categoria)
-    {
-    	$this->categoria = $categoria;
-    
-    	return $this;
-    }
+       
 }

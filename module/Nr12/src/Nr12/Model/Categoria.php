@@ -6,6 +6,8 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Entidade Categoria
@@ -16,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="nr12_categoria")
  * @ORM\Entity
  */
+
 class Categoria {
 	/**
 	 * @var int
@@ -29,27 +32,46 @@ class Categoria {
 	 * @var string
 	 * @ORM\Column(type="string", length=255)
 	 */
-	protected $descricao;
+	protected $descricao;	
 	
-	/**
-	 * @ORM\OneToMany(targetEntity="Produto", mappedBy="categoria")
-	 */
-	protected $produtos;
-
 	/**
 	 * InputFilter
 	 * @var InputFilter
 	 */
-	protected $inputFilter;
-
+	protected $inputFilter;	
+	
+	/**
+     * @ORM\ManyToOne(targetEntity="Nr12\Model\Produto", inversedBy="categorias")
+     */
+    protected $produto;
+	
+    /**
+     * Allow null to remove association
+     *
+     * @param Produto $produto
+     */
+    public function setProduto(Produto $produto = null)
+    {
+    	$this->produto = $produto;
+    }
+        
+    /**
+     * @return Produto
+    */
+    public function getProduto()
+    {
+    	return $this->produto;
+    }
+	
 	/**
 	 * Tranforma array em informações
 	 * @return void
 	 */
 	public function exchangeArray($data)
 	{
-		$this->categoria_id  = (!empty($data['categoria_id'])) ? $data['categoria_id'] : null;
-		$this->descricao     = (!empty($data['descricao'])) ? $data['descricao'] : null;				
+		/* $this->categoria_id  = (!empty($data['categoria_id'])) ? $data['categoria_id'] : null;
+		$ this->descricao     = (!empty($data['descricao'])) ? $data['descricao'] : null;
+		*/				
 	}
 
 	/**
@@ -127,5 +149,5 @@ class Categoria {
 		$this->descricao = $descricao;
 
 		return $this;
-	}
+	}				
 }

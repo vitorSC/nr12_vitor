@@ -1,5 +1,8 @@
 <?php $this->headTitle('Cadastro de Produtos | NR12 Sistema'); ?>
-<label class="divisor"><h2>Lista de Produtos <a class="btn" style="float:right" href="<?php echo $this->url('produto', array('action'=>'add')); ?>">Adicionar novo</a></h2></label>
+<h2>Lista de Produtos</h2>
+	
+<a class="btn btn-success" href="<?php echo $this->url('produto', array('action'=>'add')); ?>">Novo Produto</a>
+
 <table class="table">
     <thead>
         <tr>
@@ -8,16 +11,20 @@
             <th width="130">Ações</th>
         </tr>
     </thead>
+      
     <tbody>
         <?php foreach($produtos as $produto): ?>
-            <tr>
+            <tr>            
                 <td><?php echo $this->escapeHtml($produto->getDescricao()) ?></td>
-                <td><?php echo count($produto->getCategorias()) ?></td>
+                <td><?php //echo utf8_encode($produto->getCategoria()->getDescricao()) ?></td>
+                
                 <td class="center">
-                    <a class="btn" href="<?php echo $this->url('produto',
-                        array('action'=>'edit', 'id' => $produto->getProdutoId()));?>"><i class="icon-edit"></i></a>
-                    <a class="btn" href="<?php echo $this->url('produto',
-                        array('action'=>'delete', 'id' => $produto->getProdutoId()));?>"><i class="icon-remove"></i></a>
+                    <a class="btn btn-mini btn-warning" href="<?php echo $this->url('produto',
+                        array('action'=>'edit', 'id' => $produto->getProdutoId()));?>">Editar</a>
+                    
+                    <a class="btn btn-mini btn-danger" href="<?php echo $this->url('produto',
+                        array('action'=>'delete', 'id' => $produto->getProdutoId()));?>">Excluir
+                    </a>
                 </td>
             </tr>
         <?php endforeach; ?>

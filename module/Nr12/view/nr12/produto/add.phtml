@@ -1,15 +1,42 @@
-<?php $this->headTitle('Cadastro de Títulos | NR12 Sistema Inventariante'); ?>
+<style>
+	form#produto label span {
+		float: left;
+		clear: both;		
+	}
+	
+	input, footer, select {
+		float: left;
+		clear: both;		
+	}
+	
+	a.btn {
+		float: left;
+		margin-left: 25px;
+		margin-top: 30px;
+	}
+	
+	hr {
+		float: left;
+		clear: both;
+		width: 100%;
+	}
+	
+	input[type="submit"] {
+		margin-top: 30px;
+	}
+</style>
+<?php $this->headTitle('Cadastro de Produtos | NR12'); ?>
 
-<h1><?php echo $this->translate('Adicionar novo título'); ?></h1>
+<h1><?php echo $this->translate('Adicionar novo produto'); ?></h1>
 <?php
-$form = $this->form;
-$form->setAttribute('action', $this->url('titulo', array('action' => 'add')));
-$form->prepare();
+	$form = $this->form;
+	$form->setAttribute('action', $this->url('produto', array('action' => 'add')));
+	$form->prepare();
 
-echo $this->form()->openTag($form);
-echo $this->formCollection($form);
-echo $this->form()->closeTag();
-
+	$postFieldset = $form->get('produto');
+	echo $this->form()->openTag($form);
+	echo $this->formCollection($form);
+	echo $this->form()->closeTag();
 ?>
 
-<a class="btn" href="<?php echo $this->url('titulo')?>">Voltar</a>
+<a class="btn" href="<?php echo $this->url('produto')?>">Voltar</a>
