@@ -1,10 +1,6 @@
 <?php
 namespace Nr12\Model;
 
-use Zend\InputFilter\Factory as InputFactory;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -31,13 +27,7 @@ class Produto {
      * @var string
      * @ORM\Column(type="string", length=255)
      */
-    protected $descricao;
-
-    /**
-     * InputFilter
-     * @var InputFilter
-     */
-    protected $inputFilter;   
+    protected $descricao;    
 
      /**
      * @ORM\OneToMany(targetEntity="Nr12\Model\Categoria", mappedBy="produto", cascade={"persist"})
@@ -55,7 +45,7 @@ class Produto {
     public function addCategorias(Collection $categorias)
     {
     	foreach ($categorias as $categoria) {
-    		$categorias->setProduto($this);
+    		$categoria->setProduto($this);
     		$this->categorias->add($categoria);
     	}
     }
@@ -86,45 +76,7 @@ class Produto {
     public function getArrayCopy()
     {
     	return get_object_vars($this);
-    }
-    
-    /**
-     * Seta validações dos campos
-     * @return Produto
-     */
-    public function getInputFilter()
-    {
-    	if(!$this->inputFilter) {
-    		$inputFilter = new InputFilter();
-    		$factory     = new InputFactory();
-    
-    		$inputFilter->add($factory->createInput(array(
-    			'name'     => 'produto_id',
-    			'required' => true,
-    			'filters'  => array(
-    				array('name' => 'Int'),
-    			),
-    		)));
-    
-    		$inputFilter->add($factory->createInput(array(
-    			'name'       => 'descricao',
-    			'required'   => true,
-    			'validators' => array(
-    				array(
-    					'name'    => 'StringLength',
-    					'options' => array(
-    					'encoding' => 'UTF-8',
-    					'min'      => 1,
-    					'max'      => 255
-    					),
-    				),
-    			),
-    		)));
-    
-    		$this->inputFilter = $inputFilter;
-    	}
-    	return $this->inputFilter;
-    }
+    }   
     
     /**
      * Seta id do Produto

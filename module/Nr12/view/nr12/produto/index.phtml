@@ -16,7 +16,7 @@
         <?php foreach($produtos as $produto): ?>
             <tr>            
                 <td><?php echo $this->escapeHtml($produto->getDescricao()) ?></td>
-                <td><?php //echo utf8_encode($produto->getCategoria()->getDescricao()) ?></td>
+                <td><?php //($produto->getCategorias()->getDescricao());//echo utf8_encode($produto->getCategoria()->getDescricao()) ?></td>
                 
                 <td class="center">
                     <a class="btn btn-mini btn-warning" href="<?php echo $this->url('produto',

@@ -13,20 +13,20 @@ class CategoriaFieldset extends Fieldset implements InputFilterProviderInterface
 	{
 		parent::__construct('categoria');
 	
-		$this->setHydrator(new DoctrineHydrator($objectManager))
+		$this->setHydrator(new DoctrineHydrator($objectManager, 'Nr12\Model\Categoria'))
 		->setObject(new Categoria());
 	
 		$this->add(array(
-				'type' => 'Zend\Form\Element\Hidden',
-				'name' => 'categoria_id'
+			'type' => 'Zend\Form\Element\Hidden',
+			'name' => 'categoria_id'
 		));
 	
 		$this->add(array(
-				'type'    => 'Zend\Form\Element\Text',
-				'name'    => 'descricao',
-				'options' => array(
-					'label' => 'Descrição'
-				)
+			'type'    => 'Zend\Form\Element\Text',
+			'name'    => 'descricao',
+			'options' => array(
+				'label' => 'Categoria'
+			 )
 		));
 	}
 	

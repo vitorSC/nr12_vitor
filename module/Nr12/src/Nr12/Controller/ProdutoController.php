@@ -38,10 +38,8 @@ class ProdutoController extends EntityUsingController
 
 	public function addAction() 
 	{			
-		$objectManager = $this->getEntityManager();
-				
-		$form = new CreateProdutoForm($objectManager);
-		$form->get('submit')->setValue('Confirmar');
+		$objectManager = $this->getEntityManager();		
+		$form = new CreateProdutoForm($objectManager);		
 		
 		$produto = new Produto();
 		$form->bind($produto);
@@ -49,10 +47,10 @@ class ProdutoController extends EntityUsingController
 		$request = $this->getRequest();
 		if ($request->isPost()) {			
 			
-			$form->setInputFilter($produto->getInputFilter());
+			//$form->setInputFilter($produto->getInputFilter());			
 			$form->setData($request->getPost());
 			
-			if ($form->isValid()) {			
+			if ($form->isValid()) {							
 				$this->getEntityManager()->persist($produto);
 				$this->getEntityManager()->flush();
 				

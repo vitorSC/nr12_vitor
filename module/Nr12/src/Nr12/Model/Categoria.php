@@ -1,10 +1,6 @@
 <?php
 namespace Nr12\Model;
 
-use Zend\InputFilter\Factory as InputFactory;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,6 +16,7 @@ use Doctrine\Common\Collections\Collection;
  */
 
 class Categoria {
+	
 	/**
 	 * @var int
 	 * @ORM\Id
@@ -33,12 +30,6 @@ class Categoria {
 	 * @ORM\Column(type="string", length=255)
 	 */
 	protected $descricao;	
-	
-	/**
-	 * InputFilter
-	 * @var InputFilter
-	 */
-	protected $inputFilter;	
 	
 	/**
      * @ORM\ManyToOne(targetEntity="Nr12\Model\Produto", inversedBy="categorias")
@@ -61,18 +52,7 @@ class Categoria {
     public function getProduto()
     {
     	return $this->produto;
-    }
-	
-	/**
-	 * Tranforma array em informações
-	 * @return void
-	 */
-	public function exchangeArray($data)
-	{
-		/* $this->categoria_id  = (!empty($data['categoria_id'])) ? $data['categoria_id'] : null;
-		$ this->descricao     = (!empty($data['descricao'])) ? $data['descricao'] : null;
-		*/				
-	}
+    }		
 
 	/**
 	 * Retorna atributos em forma de array
@@ -81,45 +61,7 @@ class Categoria {
 	public function getArrayCopy()
 	{
 		return get_object_vars($this);
-	}
-
-	/**
-	 * Seta validações dos campos
-	 * @return Categoria
-	 */
-	public function getInputFilter()
-	{
-		if(!$this->inputFilter){
-			$inputFilter = new InputFilter();
-			$factory     = new InputFactory();
-
-			$inputFilter->add($factory->createInput(array(
-					'name' => 'categoria_id',
-					'required' => true,
-					'filters' => array(
-							array('name' => 'Int'),
-					),
-			)));		
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'descricao',
-				'required' => true,
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 255
-						),
-					),
-				),
-			)));			
-
-			$this->inputFilter = $inputFilter;
-		}
-		return $this->inputFilter;
-	}
+	}	
 
 	/**
 	 * Retorna ID da Categoria
